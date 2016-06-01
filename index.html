@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
+
+<head>
+
+<meta charset="utf-8">
+
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="css/jquery.fullPage.css">
+<link rel="stylesheet" href="css/animate.min.css">
+<link rel="stylesheet" href="css/main.css">
+
+<style>
+
+.section { text-align: center; font: 50px "Microsoft Yahei"; color: #fff;}
+
+</style>
+
+<script src="js/jquery-1.8.3.min.js"></script>
+
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+
+<script class="fullpageJs" src='js/jquery.fullPage.min.js'></script>
+
+<script type="text/javascript">
+	function isPc(){
+		var userAgentInfo = navigator.userAgent;
+		var Agent = ["Android","iPhone","SymbianOS","Windows Phone","iPad","iPod"];
+		var sign = true;
+
+		for(var i=0;i<Agent.length;i++){
+			if(userAgentInfo.indexOf(Agent[i]) > 0){
+				sign = false;
+				break;
+			}
+		}
+		return sign;
+	}
+
+	if(!isPc()){
+		// var head= document.getElementsByTagName('head')[0];
+		// var script= document.createElement('script');
+		// script.type= 'text/javascript';
+		// script.src= 'js/jquery.fullPage.min.js';
+		// head.appendChild(script);
+		$(".fullpageJs").remove();
+	}
+</script>
+
+<script>
+
+$(document).ready(function() {
+	var winWidth = $(window).width();
+	var navBtn;
+	if(winWidth>=750){
+		navBtn = true;
+	}else{
+		navBtn = false;
+	}
+	var timer, flag = true, anim = true;
+	$("#dowebok").fullpage({
+		slidesColor: ['', '#00406c', 'f0f0f0', '#f90'],
+		anchors: ['page1', 'page2', 'page3', 'page4'],
+		// setAutoScrolling:true,
+		// scrollingSpeed: 2000,
+		// continuousVertical: true,
+		navigation: navBtn,
+		onLeave: function(index, nextIndex , direction ){
+			clearInterval(timer);
+		},
+		afterLoad: function(anchorLink, index){
+
+			start();
+			
+
+			if(index == 2 && flag == true){
+				$(".nav-list").show();
+				showItem($(".second-page .item").eq(1),"bounceInLeft");
+				showItem($(".second-page .item").eq(0),"slideInLeft");
+				showItem($(".second-page .item").eq(2),"bounceInRight");
+				showItem($(".second-page .item").eq(3),"slideInRight");
+
+				hideItem($(".second-page .item").eq(1),"bounceInLeft",1000);
+				hideItem($(".second-page .item").eq(0),"slideInLeft",1000);
+				hideItem($(".second-page .item").eq(2),"bounceInRight",1000);
+				hideItem($(".second-page .item").eq(3),"slideInRight",1000);
+				flag = false;
+			}else if(index == 3 && anim == true){
+				$(".third-page table").show();
+				showItem($(".third-page table").eq(0).find("td").eq(0),"bounceInDown");
+				showItem($(".third-page table").eq(0).find("td").eq(1),"bounceInDown");
+				showItem($(".third-page table").eq(0).find("td").eq(2),"bounceInDown");
+				showItem($(".third-page table").eq(0).find("td").eq(3),"bounceInDown");
+				showItem($(".third-page table").eq(0).find("td").eq(4),"bounceInUp");
+				showItem($(".third-page table").eq(0).find("td").eq(5),"bounceInUp");
+				showItem($(".third-page table").eq(0).find("td").eq(6),"bounceInUp");
+				showItem($(".third-page table").eq(0).find("td").eq(7),"bounceInUp");
+
+				hideItem($(".third-page table").eq(0).find("td").eq(0),"bounceInDown",1000);
+				hideItem($(".third-page table").eq(0).find("td").eq(1),"bounceInDown",1000);
+				hideItem($(".third-page table").eq(0).find("td").eq(2),"bounceInDown",1000);
+				hideItem($(".third-page table").eq(0).find("td").eq(3),"bounceInDown",1000);
+				hideItem($(".third-page table").eq(0).find("td").eq(4),"bounceInUp",1000);
+				hideItem($(".third-page table").eq(0).find("td").eq(5),"bounceInUp",1000);
+				hideItem($(".third-page table").eq(0).find("td").eq(6),"bounceInUp",1000);
+				hideItem($(".third-page table").eq(0).find("td").eq(7),"bounceInUp",1000);
+				anim = false;
+			}
+			// else{
+			// 	$(".nav-list").show();
+			// 	$(".third-page table").show();
+			// }
+		}
+
+	});
+	start();
+	function start(){
+		timer = setInterval(function(){
+	        $.fn.fullpage.moveSectionDown();
+	    }, 3000);
+	}
+
+	function showItem(obj,classname,duration){
+		if(duration){
+			setTimeout(function(){
+				obj.addClass(classname + " animated infinite");
+			},duration);
+		}else{
+			obj.addClass(classname + " animated infinite");
+		}
+	}
+	function hideItem(obj,classname,duration){
+		setTimeout(function(){
+			obj.removeClass(classname + " animated infinite");
+		},duration);
+	}
+
+	var $animate = $('.shadow-wrap');
+	$(".contact").on("click",function(){
+		$(".shadow").show();
+		$animate.addClass('bounceInDown animated infinite');
+		setTimeout(removeClassDown, 1000);
+	});
+
+	function removeClassDown(){
+		$animate.removeClass('bounceInDown animated infinite');
+	}
+
+	$(".btn-close").on("click",function(){
+		$(".shadow").fadeOut(1000);
+	});
+
+//	function removeClassUp(fn){
+//		$animate.removeClass('bounceOutUp animated infinite');
+//	}
+	
+
+});
+
+</script>
+
+</head>
+
+
+
+<body>
+
+<div class="shadow">
+	<div class="shadow-wrap">
+		<div class="close"><span class="btn-close"></span></div>
+		<ul class="develop-list clearfix">
+			<li>
+				<p><img src="images/pic_icon/12.png"></p>
+				<span>游贤波</span>
+			</li>
+			<li>
+				<p><img src="images/pic_icon/12.png"></p>
+				<span>游贤波</span>
+			</li>
+			<li>
+				<p><img src="images/pic_icon/12.png"></p>
+				<span>游贤波</span>
+			</li>
+			<li>
+				<p><img src="images/pic_icon/12.png"></p>
+				<span>游贤波</span>
+			</li>
+			<li>
+				<p><img src="images/pic_icon/12.png"></p>
+				<span>游贤波</span>
+			</li>
+			<li>
+				<p><img src="images/pic_icon/12.png"></p>
+				<span>游贤波</span>
+			</li>
+			<li>
+				<p><img src="images/pic_icon/12.png"></p>
+				<span>游贤波</span>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<header>
+	<a href="#" class="login">登录</a><a href="javascript:;" class="contact">联系我</a>
+</header>
+
+<div id="dowebok">
+	<div class="section first-page">
+
+		<div class="title">APP推广<br />5000元 ASO服务礼包</div>
+
+		<p>APP下载量太低？用户转化太差？推广成本太高？见效时间太慢？客户不精准？</p>
+
+		<a href="#">联系我，就对了</a>
+
+	</div>
+
+	<div class="section second-page">
+		<div class="title1">我们的服务</div>
+		<div class="title2">Our Service</div>
+		<div class="nav-list">
+			<div class="item">
+				<div class="pic pic1"></div>
+				<div class="title">APP推广</div>
+				<div class="content">轻松简单的投放广告，流程简单，投放迅速，激活质量优质，一对一专属服务，安心放心。</div>
+			</div>
+			<div class="item ml18">
+				<div class="pic pic2"></div>
+				<div class="title">ROM助手</div>
+				<div class="content">是首款基于在Windows平台对安卓系统（简称Rom）进行编辑和制作的工具...</div>
+			</div>
+			<div class="item ml18">
+				<div class="pic pic3"></div>
+				<div class="title">平台接入</div>
+				<div class="content">帮助开发者实现最大的化的收益 ，通过蘑菇大数据分析，向您推荐更适合的推广产品。</div>
+			</div>
+			<div class="item ml18">
+				<div class="pic pic4"></div>
+				<div class="title">对账结算</div>
+				<div class="content">强大的数据统计功能，为每个开发者精确统计软件激活，独立后台，迅速对账，及时支付，结算靠谱. </div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="section third-page">
+
+		<div class="title1">我们的服务</div>
+		<div class="title2">Our Service</div>
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+					<span class="icon icon1"></span>
+					<p>高额的收入回报</p>
+				</td>
+				<td>
+					<span class="icon icon2"></span>
+					<p>强大的技术支持</p>
+				</td>
+				<td>
+					<span class="icon icon3"></span>
+					<p>完善的奖勤制度</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="icon icon4"></span>
+					<p>数据精准有保障</p>
+				</td>
+				<td>
+					<span class="icon icon5"></span>
+					<p>海量的推广资源</p>
+				</td>
+				<td>
+					<span class="icon icon6"></span>
+					<p>行业领先的技术</p>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div class="section fourth-page">
+
+		<div class="title1">合作伙伴</div>
+		<div class="title2">Partner</div>
+		<div class="pic-list">
+			<div class="item">
+				<div><img src="./images/pic_icon/31.png"></div>
+				<div class="ml18"><img src="./images/pic_icon/32.png"></div>
+				<div class="ml18"><img src="./images/pic_icon/33.png"></div>
+				<div class="ml18"><img src="./images/pic_icon/34.png"></div>
+			</div>
+			<div class="item">
+				<div><img src="./images/pic_icon/35.png"></div>
+				<div class="ml18"><img src="./images/pic_icon/36.png"></div>
+				<div class="ml18"><img src="./images/pic_icon/37.png"></div>
+				<div class="ml18"><img src="./images/pic_icon/38.png"></div>
+			</div>
+			<div class="item">
+				<div><img src="./images/pic_icon/39.png"></div>
+				<div class="ml18"><img src="./images/pic_icon/310.png"></div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="yqlj"><a href="#">Rom助手</a> | <a href="#">关于蘑菇分发</a> | <a href="#">客服中心</a> | <a href="#">平台协议</a> | <a href="#">我要赚钱</a> | <a href="#">帮助中心</a> | <a href="#">联系我们</a> | <a href="#">站长统计</a></div>
+			<div class="zhuanli">©2016 www.jidao.com All Rights Reserved | 苏ICP备13033610号-3</div>
+			<div class="rz-title"><span></span></div>
+			<div class="rz-icon">
+				<div class=""><img src="images/pic_icon/41.jpg"></div>
+				<div class="ml10"><img src="images/pic_icon/42.jpg"></div>
+				<div class="ml10"><img src="images/pic_icon/43.jpg"></div>
+				<div class="ml10"><img src="images/pic_icon/44.jpg"></div>
+				<div class="ml10"><img src="images/pic_icon/45.jpg"></div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="isWap">
+	
+</div>
+
+
+</body>
+
+</html>
